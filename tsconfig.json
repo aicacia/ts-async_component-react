@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "importHelpers": true,
+    "target": "es3",
+    "module": "commonjs",
+    "jsx": "react",
+    "declaration": true,
+    "outDir": "lib",
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "lib": ["es2018", "dom"]
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.test.*"]
+}

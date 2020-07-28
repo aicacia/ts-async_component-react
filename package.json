@@ -1,0 +1,72 @@
+{
+  "name": "@aicacia/async_component-react",
+  "version": "0.1.0",
+  "description": "aicacia async component for react",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/aicacia/libs/ts-router-react.git"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "doc": "typedoc",
+    "prepublishOnly": "npm run clean && npm run build",
+    "test": "ts-node node_modules/.bin/tape src/**/*.test.{ts,tsx} | tap-spec",
+    "coverage": "nyc --reporter=lcov --check-coverage --lines=75 --require ts-node/register tape src/**/*.test.{ts,tsx} | tap-spec; nyc report ---reporter=text",
+    "clean": "rm -rf ./lib",
+    "format": "prettier-tslint fix '**/*.{ts,tsx}' && prettier --write '**/*.{js,jsx,json}' --ignore-path .gitignore",
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}' -e 'src/**/*.test.*'"
+  },
+  "keywords": [
+    "async",
+    "component",
+    "react"
+  ],
+  "author": "Nathan Faucett",
+  "license": "(MIT OR Apache-2.0)",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "@types/tape": "^4.13.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jsdom": "^16.3.0",
+    "nyc": "^15.1.0",
+    "prettier": "^2.0.5",
+    "prettier-tslint": "^0.4.2",
+    "react": ">=16.13.1",
+    "react-dom": "^16.13.1",
+    "tap-nyc": "^1.0.3",
+    "tap-spec": "^5.0.0",
+    "tape": "^5.0.1",
+    "ts-node": "^8.10.2",
+    "tslib": "^2.0.0",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "^1.18.0",
+    "typedoc": "^0.17.8",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "@aicacia/core": "^0.1.5",
+    "@aicacia/safe_state_component-react": "^0.1.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.13.1"
+  },
+  "nyc": {
+    "include": [
+      "src"
+    ],
+    "exclude": [
+      "src/**/*.test.*"
+    ],
+    "extension": [
+      ".ts",
+      ".tsx"
+    ]
+  }
+}

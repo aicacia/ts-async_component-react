@@ -1,0 +1,12 @@
+node_modules
+coverage
+docs
+test
+npm-debug.log
+tsconfig.json
+.cache
+dist
+.vscode
+.editorconfig
+.gitignore
+.nyc_output
