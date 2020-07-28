@@ -14,20 +14,25 @@ const dom = new JSDOM("<!doctype html><html><body></body></html>");
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
-const run = (fn: () => void, ms: number) => new Promise(resolve => setTimeout(() => {
-  fn();
-  resolve();
-}, ms));
+const run = (fn: () => void, ms: number) =>
+  new Promise((resolve) =>
+    setTimeout(() => {
+      fn();
+      resolve();
+    }, ms)
+  );
 
 tape("Async fulfilled", async (assert: tape.Test) => {
   const promise = Promise.resolve("Hello, world!");
 
-  const wrapper = Enzyme.mount(<Async
-    promise={promise}
-    onSuccess={value => value}
-    onPending={() => "Loading..."}
-    onError={error => error.message}
-  />);
+  const wrapper = Enzyme.mount(
+    <Async
+      promise={promise}
+      onSuccess={(value) => value}
+      onPending={() => "Loading..."}
+      onError={(error) => error.message}
+    />
+  );
 
   assert.equal(wrapper.getDOMNode().textContent, "Loading...");
 
@@ -40,12 +45,14 @@ tape("Async fulfilled", async (assert: tape.Test) => {
 tape("Async rejected", (assert: tape.Test) => {
   const promise: Promise<string> = Promise.reject(new Error("Rejected"));
 
-  const wrapper = Enzyme.mount(<Async
-    promise={promise}
-    onSuccess={value => value}
-    onPending={() => "Loading..."}
-    onError={error => error.message}
-  />);
+  const wrapper = Enzyme.mount(
+    <Async
+      promise={promise}
+      onSuccess={(value) => value}
+      onPending={() => "Loading..."}
+      onError={(error) => error.message}
+    />
+  );
 
   assert.equal(wrapper.getDOMNode().textContent, "Loading...");
 

@@ -20,31 +20,33 @@ export class Async<T, E = Error> extends SafeStateComponent<
     result: none(),
   };
 
-  componentDidMount() {
-    super.componentDidMount();
-    this._initPromise(this.props.promise);
-  }
-  componentDidUpdate(prev: IAsyncProps<T, E>) {
-    if (prev.promise !== this.props.promise) {
-      this._initPromise(this.props.promise);
-    }
-  }
-  _initPromise(promise: Promise<T>) {
+  private initPromise(promise: Promise<T>) {
     promise
-      .then(value => this.safeSetState({ result: some(ok(value)) }))
-      .catch(error => this.safeSetState({ result: some(err(error)) }));
+      .then((value) => this.safeSetState({ result: some(ok(value)) }))
+      .catch((error) => this.safeSetState({ result: some(err(error)) }));
 
     if (this.state.result.isSome()) {
       this.safeSetState({
-        result: none()
+        result: none(),
       });
+    }
+  }
+
+  componentDidMount() {
+    super.componentDidMount();
+    this.initPromise(this.props.promise);
+  }
+  componentDidUpdate(prev: IAsyncProps<T, E>) {
+    if (prev.promise !== this.props.promise) {
+      this.initPromise(this.props.promise);
     }
   }
   render() {
     return this.state.result
-      .map(result => result.isOk()
-        ? this.props.onSuccess(result.unwrap())
-        : this.props.onError(result.unwrapErr())
+      .map((result) =>
+        result.isOk()
+          ? this.props.onSuccess(result.unwrap())
+          : this.props.onError(result.unwrapErr())
       )
       .unwrapOrElse(this.props.onPending);
   }
