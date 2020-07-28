@@ -4,7 +4,7 @@
   "description": "aicacia async component for react",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/aicacia/libs/ts-router-react.git"
+    "url": "https://gitlab.com/aicacia/libs/ts-async_component-react.git"
   },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@aicacia/core": "^0.1.5",
-    "@aicacia/safe_state_component-react": "^0.1.0"
+    "@aicacia/safe_state_component-react": "^0.1.1"
   },
   "peerDependencies": {
     "react": ">=16.13.1"
