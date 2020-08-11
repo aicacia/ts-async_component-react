@@ -15,7 +15,7 @@ export interface IAsyncState<T, E = Error> {
 export class Async<T, E = Error> extends SafeStateComponent<
   IAsyncProps<T, E>,
   IAsyncState<T, E>
-  > {
+> {
   state: IAsyncState<T, E> = {
     result: none(),
   };

@@ -3,12 +3,13 @@
     "importHelpers": true,
     "target": "es3",
     "module": "commonjs",
-    "jsx": "react",
+    "moduleResolution": "node",
     "declaration": true,
     "outDir": "lib",
+    "jsx": "react",
     "strict": true,
-    "allowSyntheticDefaultImports": true,
-    "lib": ["es2018", "dom"]
+    "downlevelIteration": true,
+    "lib": ["esnext", "DOM"]
   },
   "include": ["src"],
   "exclude": ["src/**/*.test.*"]
