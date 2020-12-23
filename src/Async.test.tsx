@@ -1,54 +1,102 @@
-import * as Enzyme from "enzyme";
-import * as EnzymeAdapter from "enzyme-adapter-react-16";
-// @ts-ignore
+import { render } from "@testing-library/react";
 import { JSDOM } from "jsdom";
-import * as React from "react";
 import * as tape from "tape";
-import { Async } from ".";
+import { Async, useAsync } from ".";
 
-const dom = new JSDOM("<!doctype html><html><body></body></html>");
+const dom = new JSDOM();
 
-(global as any).document = dom.window.document;
 (global as any).window = dom.window;
+(global as any).document = dom.window.document;
 
-Enzyme.configure({ adapter: new EnzymeAdapter() });
+interface IAsyncComponentProps {
+  promise: Promise<string>;
+}
 
-tape("Async fulfilled", async (assert: tape.Test) => {
-  const promise = Promise.resolve("Hello, world!");
-
-  const wrapper = Enzyme.mount(
+function AsyncComponent(props: IAsyncComponentProps) {
+  return (
     <Async
-      promise={promise}
+      promise={props.promise}
       onSuccess={(value) => value}
       onPending={() => "Loading..."}
       onError={(error) => error.message}
     />
   );
+}
 
-  assert.equal(wrapper.getDOMNode().textContent, "Loading...");
+tape("Async fulfilled", async (assert: tape.Test) => {
+  const promise = Promise.resolve("Hello, world!");
+
+  const wrapper = render(<AsyncComponent promise={promise} />);
+
+  assert.true(wrapper.getByText("Loading..."));
 
   await promise;
-  assert.equal(wrapper.getDOMNode().textContent, "Hello, world!");
+  assert.true(wrapper.getByText("Hello, world!"));
 
+  wrapper.unmount();
   assert.end();
 });
 
 tape("Async rejected", (assert: tape.Test) => {
   const promise: Promise<string> = Promise.reject(new Error("Rejected"));
 
-  const wrapper = Enzyme.mount(
-    <Async
-      promise={promise}
-      onSuccess={(value) => value}
-      onPending={() => "Loading..."}
-      onError={(error) => error.message}
-    />
-  );
+  const wrapper = render(<AsyncComponent promise={promise} />);
 
-  assert.equal(wrapper.getDOMNode().textContent, "Loading...");
+  assert.true(wrapper.getByText("Loading..."));
 
   setTimeout(() => {
-    assert.equal(wrapper.getDOMNode().textContent, "Rejected");
+    assert.true(wrapper.getByText("Rejected"));
+    wrapper.unmount();
+    assert.end();
+  });
+});
+
+interface IAsyncHookProps {
+  promise: Promise<string>;
+}
+
+function AsyncHook(props: IAsyncHookProps) {
+  const result = useAsync(props.promise);
+
+  return (
+    <>
+      {result
+        .map((result) => {
+          if (result.isOk()) {
+            return result.unwrap();
+          } else {
+            return result.unwrapErr().message;
+          }
+        })
+        .unwrapOr("Loading...")}
+    </>
+  );
+}
+
+tape("useAsync fulfilled", async (assert: tape.Test) => {
+  const promise = Promise.resolve("Hello, world!");
+
+  const wrapper = render(<AsyncHook promise={promise} />);
+
+  assert.true(wrapper.getByText("Loading..."));
+
+  await promise;
+  assert.true(wrapper.getByText("Hello, world!"));
+
+  wrapper.unmount();
+  assert.end();
+});
+
+tape("useAsync rejected", (assert: tape.Test) => {
+  const promise: Promise<string> = Promise.reject(new Error("Rejected"));
+
+  const wrapper = render(<AsyncHook promise={promise} />);
+
+  assert.true(wrapper.getByText("Loading..."));
+
+  setTimeout(() => {
+    assert.true(wrapper.getByText("Rejected"));
+    wrapper.unmount();
     assert.end();
   });
 });
