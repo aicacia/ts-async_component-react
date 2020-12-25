@@ -2,7 +2,6 @@
 .vscode
 coverage
 docs
-examples
 node_modules
 .editorconfig
 .eslintignore

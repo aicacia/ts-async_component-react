@@ -10,6 +10,7 @@ export function useAsync<T, E = Error>(
     promise
       .then((value) => setResult(some(ok(value))))
       .catch((error) => setResult(some(err(error))));
+    setResult(none());
   }, [promise]);
 
   return result;

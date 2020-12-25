@@ -1,6 +1,6 @@
 {
   "name": "@aicacia/async_component-react",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "aicacia async component for react",
   "repository": {
     "type": "git",
@@ -26,37 +26,37 @@
   "license": "(MIT OR Apache-2.0)",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "@testing-library/react": "^11.2.2",
-    "@types/jsdom": "^16.2.5",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@types/tape": "^4.13.0",
-    "@typescript-eslint/eslint-plugin": "^4.11.0",
-    "@typescript-eslint/parser": "^4.11.0",
-    "eslint": "^7.5.0",
-    "eslint-config-prettier": "^7.1.0",
-    "eslint-plugin-prettier": "^3.3.0",
-    "eslint-plugin-react": "^7.21.5",
-    "jsdom": "^16.4.0",
-    "nyc": "^15.1.0",
-    "prettier": "^2.0.5",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "tap-nyc": "^1.0.3",
-    "tap-spec": "^5.0.0",
-    "tape": "^5.0.1",
-    "ts-node": "^9.1.1",
-    "tslib": "^2.0.3",
+    "@testing-library/react": "11",
+    "@types/jsdom": "16",
+    "@types/react": "16 || 17",
+    "@types/react-dom": "16 || 17",
+    "@types/tape": "4",
+    "@typescript-eslint/eslint-plugin": "4",
+    "@typescript-eslint/parser": "4",
+    "eslint": "7",
+    "eslint-config-prettier": "7",
+    "eslint-plugin-prettier": "3",
+    "eslint-plugin-react": "7",
+    "jsdom": "16",
+    "nyc": "15",
+    "prettier": "2",
+    "react": "16 || 17",
+    "react-dom": "16 || 17",
+    "tap-nyc": "1",
+    "tap-spec": "",
+    "tape": "5",
+    "ts-node": "9",
+    "tslib": "2",
     "typedoc": "beta",
-    "typescript": "^4.1.3"
+    "typescript": "4"
   },
   "dependencies": {
-    "@aicacia/core": "^0.1.11",
-    "@aicacia/safe_state_component-react": "^0.1.2"
+    "@aicacia/core": "0",
+    "@aicacia/safe_state_component-react": "0"
   },
   "peerDependencies": {
-    "tslib": ">=2",
-    "react": ">=16"
+    "tslib": "2",
+    "react": "16 || 17"
   },
   "nyc": {
     "include": [

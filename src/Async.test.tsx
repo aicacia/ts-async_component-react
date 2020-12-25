@@ -16,9 +16,9 @@ function AsyncComponent(props: IAsyncComponentProps) {
   return (
     <Async
       promise={props.promise}
-      onSuccess={(value) => value}
-      onPending={() => "Loading..."}
-      onError={(error) => error.message}
+      onSuccess={(value) => <p>{value}</p>}
+      onPending={() => <p>Loading...</p>}
+      onError={(error) => <p>{error.message}</p>}
     />
   );
 }
